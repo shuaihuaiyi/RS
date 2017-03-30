@@ -34,6 +34,9 @@ function rs(img)
                     end
                 end
             case 3                  %�㷭ת
+                
         end
     end
-    cols = col2im(cols, [8, 8], [m, n], 'distinct');
+    img = col2im(cols, [8, 8], [m, n], 'distinct');
+    
+end
