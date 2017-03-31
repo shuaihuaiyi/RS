@@ -1,4 +1,4 @@
-function[rm, sm, rm1, sm1] = rs(img)
+function[rp, sp, rn, sn] = rs(img)
     order = [ %z字型读取数据顺序表
         1  9  2  3  10 17 25 18 ...
         11 4  5  12 19 26 33 41 ...
@@ -10,7 +10,7 @@ function[rm, sm, rm1, sm1] = rs(img)
         47 40 48 55 62 63 56 64];    
     cols = im2col(img, [8 8], 'distinct');  % 将8x8 的块转化为列
     cols = cols(order, :);                  % 按照order的顺序排列数据
-    [rm, sm, rm1, sm1] = deal(0);
+    [rp, sp, rn, sn] = deal(0);
     for col = cols
         pcb = getPixelCorrelation(col);
         flag = randi([1 3]);        %随机选择一种翻转方式
@@ -26,9 +26,9 @@ function[rm, sm, rm1, sm1] = rs(img)
                 end
                 pca = getPixelCorrelation(col);
                 if pca > pcb
-                    rm = rm + 1;
+                    rp = rp + 1;
                 elseif pca < pcb
-                    sm = sm + 1;
+                    sp = sp + 1;
                 end
             case 2                  %负向翻转
                 for i = 1:64
@@ -41,9 +41,9 @@ function[rm, sm, rm1, sm1] = rs(img)
                 end
                 pca = getPixelCorrelation(col);
                 if pca > pcb
-                    rm1 = rm1 + 1;
+                    rn = rn + 1;
                 elseif pca < pcb
-                    sm1 = sm1 + 1;
+                    sn = sn + 1;
                 end
             case 3                  %零翻转
         end
