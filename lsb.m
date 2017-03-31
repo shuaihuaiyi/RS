@@ -8,5 +8,5 @@ function [result] = lsb(source,rate)
             col(i) = col(i)-1;
         end
     end
-    result = col2img(col,[m,n],'distinct');
+    result = col2im(col,[m,n], [m,n], 'distinct');
 end
