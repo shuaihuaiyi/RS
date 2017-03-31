@@ -10,12 +10,13 @@ function[rp, sp, rn, sn] = rs(img)
         47 40 48 55 62 63 56 64];    
     cols = im2col(img, [8 8], 'distinct');  % 将8x8 的块转化为列
     cols = cols(order, :);                  % 按照order的顺序排列数据
-    [rp, sp, rn, sn] = deal(0);
+    [rp, sp, rn, sn, cp, cn] = deal(0);
     for col = cols
         pcb = getPixelCorrelation(col);
         flag = randi([1 3]);        %随机选择一种翻转方式
         switch flag
             case 1                  %正向翻转
+                cp = cp + 1;
                 for i = 1:64
                     x = col(i);
                     if(mod(x, 2)==0)
@@ -31,6 +32,7 @@ function[rp, sp, rn, sn] = rs(img)
                     sp = sp + 1;
                 end
             case 2                  %负向翻转
+                cn = cn + 1;
                 for i = 1:64
                     x = col(i);
                     if(mod(x, 2)==0)
@@ -48,4 +50,8 @@ function[rp, sp, rn, sn] = rs(img)
             case 3                  %零翻转
         end
     end
+    rp = rp / cp;
+    sp = sp / cp;
+    rn = rn / cn;
+    sn = sn / cn;
 end
