@@ -1,6 +1,5 @@
 function [source] = antiRsLsb(source,rate)
     [m,n] = size(source);
-    %source = im2source(source, [m,n], 'distinct');
     for i = 1:m*n*rate
         t = 0;
         if(mod(source(i), 2)==0 && mod(i,2)==1)
@@ -35,5 +34,4 @@ function [source] = antiRsLsb(source,rate)
             end
         end
     end
-    %result = source2im(source,[m,n], [m,n],'distinct');
 end
